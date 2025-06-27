@@ -3,7 +3,7 @@ import Botton from 'components/botton';
 import Input from 'components/input';
 import { useHelperContext } from 'components/providers/helper-provider';
 import { useEffect } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { isValidEmail, isValidPassword } from 'utils/validate';
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
 
   return (
     <SafeAreaView>
-      <View className="mt-16 px-10">
+      <ScrollView className="pt-16 px-10 min-h-screen">
         <Text className="text-2xl font-bold">Login to your account</Text>
 
         <Text className="mt-14 font-bold text-gray-500">Email</Text>
@@ -47,7 +47,7 @@ export default function Login() {
             <Text className="ml-1 text-primary">Sign Up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

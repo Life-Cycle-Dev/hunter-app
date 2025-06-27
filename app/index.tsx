@@ -7,20 +7,24 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Index() {
-  const { setNavigationText, setShowTopbar } = useHelperContext()();
+  const { setNavigationText, setShowTopbar, setFullLoading } = useHelperContext()();
 
   useEffect(() => {
     setNavigationText('Home');
     setShowTopbar(true);
+
+    setTimeout(() => {
+      setFullLoading(false);
+    }, 1000);
   }, []);
 
   return (
-    <ScrollView className="px-6">
+    <ScrollView className="px-4">
       <View className="mt-8">
-        <View className="rounded-xl bg-primary/90 px-4 pb-8 shadow-sm flex-row items-center">
+        <View className="flex-row items-center rounded-xl bg-primary/90 px-4 pb-8 shadow-sm">
           <Text className="px-2 py-4 text-2xl font-bold text-white">Hunter App</Text>
-          <View className='bg-white px-1 rounded-md'>
-            <Text className='font-bold text-sm'>Beta</Text>
+          <View className="rounded-md bg-white px-1">
+            <Text className="text-sm font-semibold">Beta</Text>
           </View>
         </View>
         <View className="mt-[-20px] flex h-[90px] flex-row items-center justify-center gap-6 rounded-xl bg-white px-4 shadow-sm">

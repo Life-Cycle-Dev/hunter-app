@@ -3,7 +3,7 @@ import Botton from 'components/botton';
 import Input from 'components/input';
 import { useHelperContext } from 'components/providers/helper-provider';
 import { useEffect } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { isValidEmail, isValidPassword } from 'utils/validate';
 
 export default function Register() {
@@ -16,10 +16,18 @@ export default function Register() {
 
   return (
     <SafeAreaView>
-      <View className="mt-16 px-10">
+      <ScrollView className="pt-16 px-10 min-h-screen">
         <Text className="text-2xl font-bold">Create your account</Text>
 
-        <Text className="mt-14 font-bold text-gray-500">Email</Text>
+        <Text className="mt-14 font-bold text-gray-500">Name</Text>
+        <Input
+          placeholder="name"
+          type="TEXT"
+          className="mt-2"
+          validate={(value) => (value ? '' : 'Name is require')}
+        />
+
+        <Text className="mt-8 font-bold text-gray-500">Email</Text>
         <Input
           placeholder="email"
           type="TEXT"
@@ -55,7 +63,7 @@ export default function Register() {
             <Text className="ml-1 text-primary">Sign In</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

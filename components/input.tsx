@@ -33,7 +33,7 @@ export default function Input({ placeholder, className, type, validate }: InputP
       <View className="relative justify-center">
         <TextInput
           placeholder={placeholder ?? ''}
-          className={`rounded-md border bg-white p-4 pr-12 shadow-sm ${error ? 'border-red-500' : 'border-gray-200'}`}
+          className={`rounded-md border bg-white p-4 pr-12 ${error ? 'border-red-500' : 'border-gray-200'}`}
           secureTextEntry={isPassword && !show}
           value={value}
           onChangeText={handleChangeText}
