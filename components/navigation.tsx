@@ -25,7 +25,7 @@ export default function NavigationBar() {
       icon: 'user',
       size: 24,
       text: 'Account',
-      route: '/auth/login',
+      route: '/auth/',
     },
   ];
 

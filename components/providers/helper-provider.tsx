@@ -5,6 +5,8 @@ interface HelperContextType {
   setNavigationText: (text: string) => void;
   navigationText: string;
   router: Router;
+  showTopbar: boolean;
+  setShowTopbar: (value: boolean) => void;
 }
 
 const HelperContext = createContext<() => HelperContextType>(() => {
@@ -12,11 +14,14 @@ const HelperContext = createContext<() => HelperContextType>(() => {
     setNavigationText: () => {},
     navigationText: '',
     router: {} as Router,
+    showTopbar: true,
+    setShowTopbar: () => {},
   };
 });
 
 export function HelperProvider({ children }: { children: ReactNode }) {
   const [navigationText, setNavigationText] = useState<string>('');
+  const [showTopbar, setShowTopbar] = useState<boolean>(true);
   const router = useRouter();
 
   const useHelper = useCallback(
@@ -24,8 +29,10 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       navigationText,
       setNavigationText,
       router,
+      showTopbar,
+      setShowTopbar,
     }),
-    [navigationText, setNavigationText, router]
+    [navigationText, setNavigationText, router, showTopbar, setShowTopbar]
   );
 
   return <HelperContext.Provider value={useHelper}>{children}</HelperContext.Provider>;
