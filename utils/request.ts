@@ -4,28 +4,53 @@ import { getItem, removeItem, setItem } from './storage';
 import { ErrorResponse, isErrorResponse, isSignUpResponse, LoginRequest, LoginResponse, SignUpRequest, SignUpResponse, VerifyEmailRequest, VerifyEmailResponse } from './types/response';
 import { UserInfo } from './types/user';
 import { Router } from "expo-router";
+import { ALERT_TYPE, Toast } from 'react-native-alert-notification';
 
 const handlerError = (error: unknown): ErrorResponse => {
     if (isAxiosError(error)) {
         if (error.status === 401) {
+            Toast.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'Error',
+                textBody: "Session expired. Please login again.",
+            });
             return {
                 error: "Session expired. Please login again.",
             };
         } else if (error.response && error.response.data && error.response.data.navigation) {
-            window.location.href = error.response.data.redirect;
+            Toast.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'Error',
+                textBody: "Redirecting to " + error.response.data.navigation,
+            });
             return {
                 error: "Redirecting to " + error.response.data.navigation,
             };
         } else if (error.response && error.response.data && error.response.data.error) {
+            Toast.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'Error',
+                textBody: error.response.data.error,
+            });
             return {
                 error: error.response.data.error,
             };
         } else {
+            Toast.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'Error',
+                textBody: error.response?.data ?? error.message,
+            });
             return {
                 error: error.response?.data ?? error.message,
             };
         }
     } else {
+        Toast.show({
+            type: ALERT_TYPE.DANGER,
+            title: 'Error',
+            textBody: "An unknown error occurred. Try again!",
+        });
         return {
             error: "An unknown error occurred. Try again!",
         };

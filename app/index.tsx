@@ -14,6 +14,15 @@ export default function Index() {
     setShowTopbar(true);
   }, []);
 
+  const test = () => {
+    // Dialog.show({
+    //   type: ALERT_TYPE.DANGER,
+    //   title: 'Success',
+    //   textBody: 'Congrats! this is dialog box success',
+    //   button: 'close',
+    // });
+  };
+
   return (
     <ScrollView className="px-4">
       <View className="mt-8">
@@ -24,7 +33,7 @@ export default function Index() {
           </View>
         </View>
         <View className="mt-[-20px] flex h-[90px] flex-row items-center justify-center gap-6 rounded-xl bg-white px-4 shadow-sm">
-          <TouchableOpacity className="flex items-center justify-center gap-1">
+          <TouchableOpacity className="flex items-center justify-center gap-1" onPress={test}>
             <LinearGradient
               colors={['#4f8cff', '#3358d4']}
               style={{
