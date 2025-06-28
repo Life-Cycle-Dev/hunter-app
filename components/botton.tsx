@@ -5,6 +5,7 @@ interface BottonProps {
   onPress?: () => void;
   className?: string;
   outline?: keyof typeof outlineMapping;
+  disable?: boolean;
 }
 
 const outlineMapping = {
@@ -25,15 +26,27 @@ export default function Botton({
   className,
   onPress = () => {},
   outline = 'defualt',
+  disable = false,
 }: BottonProps) {
   return (
-    <Pressable onPress={onPress}>
-      {({ pressed }) => (
-        <View
-          className={`flex items-center justify-center rounded-md p-4 shadow-sm ${pressed ? outlineMapping[outline].bgHover : outlineMapping[outline].bg} ${className ?? ''}`}>
-          <Text className={outlineMapping[outline].text}>{text}</Text>
-        </View>
-      )}
+    <Pressable onPress={onPress} disabled={disable}>
+      {({ pressed }) => {
+        const isDisabled = disable;
+        const outlineStyle = outlineMapping[outline];
+        const bgClass = isDisabled
+          ? 'bg-gray-300'
+          : pressed
+            ? outlineStyle.bgHover
+            : outlineStyle.bg;
+        const textClass = isDisabled ? 'text-gray-900' : outlineStyle.text;
+        const opacityClass = isDisabled ? 'opacity-50' : '';
+        return (
+          <View
+            className={`flex items-center justify-center rounded-md p-4 shadow-sm ${bgClass} ${opacityClass} ${className ?? ''}`}>
+            <Text className={textClass}>{text}</Text>
+          </View>
+        );
+      }}
     </Pressable>
   );
 }

@@ -1,7 +1,11 @@
-import { createContext, ReactNode, useCallback, useContext, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { Router, useRouter } from 'expo-router';
 import { View } from 'react-native';
 import FullLoading from 'components/full-loading';
+import { BackendClient } from 'utils/request';
+import { UserInfo } from 'utils/types/user';
+import { isErrorResponse } from 'utils/types/response';
 
 interface HelperContextType {
   setNavigationText: (text: string) => void;
@@ -10,6 +14,8 @@ interface HelperContextType {
   showTopbar: boolean;
   setShowTopbar: (value: boolean) => void;
   setFullLoading: (value: boolean) => void;
+  backendClient: BackendClient;
+  userData: UserInfo | null;
 }
 
 const HelperContext = createContext<() => HelperContextType>(() => {
@@ -20,13 +26,16 @@ const HelperContext = createContext<() => HelperContextType>(() => {
     showTopbar: true,
     setShowTopbar: () => {},
     setFullLoading: () => {},
+    backendClient: new BackendClient(() => {}, useRouter(), () => {}),
+    userData: null,
   };
 });
 
 export function HelperProvider({ children }: { children: ReactNode }) {
   const [navigationText, setNavigationText] = useState<string>('');
   const [showTopbar, setShowTopbar] = useState<boolean>(true);
-  const [fullLoading, setFullLoading] = useState<boolean>(true);
+  const [fullLoading, setFullLoading] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserInfo | null>(null);
   const router = useRouter();
 
   const useHelper = useCallback(
@@ -37,9 +46,22 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       showTopbar,
       setShowTopbar,
       setFullLoading,
+      backendClient: new BackendClient(setFullLoading, router, setUserData),
+      userData,
     }),
-    [navigationText, setNavigationText, router, showTopbar, setShowTopbar, setFullLoading]
+    [navigationText, setNavigationText, router, showTopbar, setShowTopbar, setFullLoading, userData]
   );
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const backendClient = new BackendClient(setFullLoading, router, setUserData);
+      const response = await backendClient.getUserInfo();
+      if (!isErrorResponse(response)) {
+        setUserData(response);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   return (
     <HelperContext.Provider value={useHelper}>

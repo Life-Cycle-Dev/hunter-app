@@ -1,15 +1,22 @@
 import { TextInput, View, Pressable, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface InputProps {
   placeholder?: string;
   className?: string;
   type: 'PASSWORD' | 'TEXT';
   validate?: (value: string) => string;
+  onChange?: (value: string) => void;
 }
 
-export default function Input({ placeholder, className, type, validate }: InputProps) {
+export default function Input({
+  placeholder,
+  className,
+  type,
+  validate,
+  onChange = () => {},
+}: InputProps) {
   const [show, setShow] = useState(false);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
@@ -23,10 +30,13 @@ export default function Input({ placeholder, className, type, validate }: InputP
 
   const handleChangeText = (text: string) => {
     setValue(text);
+    onChange(text);
     if (validate) {
-      setError(validate(value));
+      setError(validate(text));
     }
   };
+
+  useEffect(() => {}, [value]);
 
   return (
     <View className={className ?? ''}>

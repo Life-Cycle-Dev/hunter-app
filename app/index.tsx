@@ -7,15 +7,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Index() {
-  const { setNavigationText, setShowTopbar, setFullLoading } = useHelperContext()();
+  const { setNavigationText, setShowTopbar } = useHelperContext()();
 
   useEffect(() => {
     setNavigationText('Home');
     setShowTopbar(true);
-
-    setTimeout(() => {
-      setFullLoading(false);
-    }, 1000);
   }, []);
 
   return (

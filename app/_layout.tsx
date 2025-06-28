@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import './global.css';
 import { Slot } from 'expo-router';
 import { View } from 'react-native';
