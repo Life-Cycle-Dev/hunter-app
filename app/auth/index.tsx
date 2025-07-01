@@ -2,10 +2,9 @@
 import { useHelperContext } from 'components/providers/helper-provider';
 import { useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { removeItem } from 'utils/storage';
 
 export default function Index() {
-  const { setNavigationText, setShowTopbar, router, userData } = useHelperContext()();
+  const { setNavigationText, setShowTopbar, router, userData, backendClient } = useHelperContext()();
 
   useEffect(() => {
     setNavigationText('Account');
@@ -13,8 +12,7 @@ export default function Index() {
   }, []);
 
   const onSignOut = async () => {
-    removeItem('access_token');
-    removeItem('refresh_token');
+    await backendClient.logout();
     router.push('/');
   };
 

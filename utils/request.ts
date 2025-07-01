@@ -67,11 +67,13 @@ export class BackendClient {
     private readonly router: Router;
     private readonly setLoading: (value: boolean) => void;
     private readonly setUserData: (data: UserInfo) => void;
+    private readonly debug: boolean;
 
-    constructor(setLoading: ((value: boolean) => void), router: Router, setUserData: (data: UserInfo) => void) {
+    constructor(setLoading: ((value: boolean) => void), router: Router, setUserData: (data: UserInfo) => void, debug: boolean = true) {
         this.setLoading = setLoading;
         this.router = router;
         this.setUserData = setUserData;
+        this.debug = debug;
         this.client = axios.create({
             baseURL: appConfig.backendPath,
             headers: {
@@ -80,8 +82,11 @@ export class BackendClient {
         });
 
         this.client.interceptors.request.use(async (config) => {
-            console.log(config.url)
-
+            if (this.debug) {
+                console.log('REQUEST:', config);
+            } else {
+                console.log(config.url);
+            }
             const accessToken = await getItem("access_token");
             if (accessToken) {
                 config.headers.Authorization = `Bearer ${accessToken}`;
@@ -90,9 +95,20 @@ export class BackendClient {
         });
 
         this.client.interceptors.response.use(
-            response => response,
+            response => {
+                if (this.debug) {
+                    console.log('RESPONSE:', response);
+                } else {
+                    console.log(`${response.config.url} - ${response.status}`);
+                }
+                return response;
+            },
             async (error) => {
-                console.log(error.response?.status, error.response?.data)
+                if (this.debug && error.response) {
+                    console.log('ERROR RESPONSE:', error.response);
+                } else if (error.response) {
+                    console.log(`${error.config.url} - ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+                }
 
                 if (error.response && error.response.status === 401) {
                     const refreshToken = await getItem("refresh_token");
@@ -197,6 +213,25 @@ export class BackendClient {
                 this.router.push("/")
             }
             return response.data;
+        } catch (e) {
+            return handlerError(e);
+        } finally {
+            this.setLoading(false);
+        }
+    }
+
+    async logout(): Promise<ErrorResponse | void> {
+        try {
+            this.setLoading(true);
+            removeItem("refresh_token");
+            removeItem("access_token");
+            this.setUserData({
+                id: "",
+                email: "",
+                name: "",
+                is_email_verified: false,
+                created_at: ""
+            });
         } catch (e) {
             return handlerError(e);
         } finally {

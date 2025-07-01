@@ -24,12 +24,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thanawat.tonkla.hunter",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.thanawat.tonkla.hunter"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "450cb74a-cac9-43a9-add7-9f37b5331348"
       }
     }
   }
