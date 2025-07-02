@@ -93,7 +93,7 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
                 )
               );
             }}
-            className="ml-2 rounded bg-primary/10 px-2 py-1">
+            className="ml-2 px-2 py-1">
             <Icon name="copy" size={16} color="#1f329d" />
           </TouchableOpacity>
         </View>
@@ -149,7 +149,7 @@ export default function Index() {
         <TouchableOpacity onPress={() => router.back()} className="mr-2 p-2">
           <Icon name="arrow-left" size={24} color="#1f329d" />
         </TouchableOpacity>
-        <Text className="text-lg font-bold">Debug</Text>
+        <Text className="text-lg font-bold">Hunter Debug</Text>
       </View>
       <View className="mb-4 flex-row self-center">
         <TouchableOpacity
