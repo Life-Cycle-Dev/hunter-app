@@ -249,6 +249,7 @@ export class BackendClient {
         removeItem('VERIFY_REF');
         setItem('access_token', response.data.access_token);
         setItem('refresh_token', response.data.refresh_token);
+        await this.getUserInfo();
         this.router.push('/');
       }
       return response.data;

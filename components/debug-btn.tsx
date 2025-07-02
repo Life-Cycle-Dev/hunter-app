@@ -30,7 +30,7 @@ export default function DebugBtn() {
         pan.flattenOffset();
         const dx = Math.abs(gestureState.moveX - initialTouch.current.x);
         const dy = Math.abs(gestureState.moveY - initialTouch.current.y);
-        if (dx < 15 && dy < 15) {
+        if (dx < 20 && dy < 20) {
           onClick();
         }
       },

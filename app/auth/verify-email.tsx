@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Botton from 'components/botton';
 import { useHelperContext } from 'components/providers/helper-provider';
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Text,
   View,
@@ -13,7 +14,7 @@ import {
 import { getItem } from 'utils/storage';
 
 export default function VerifyEmail() {
-  const { backendClient } = useHelperContext()();
+  const { backendClient, userData, router } = useHelperContext()();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef<TextInput[]>([]);
   const [ref, setRef] = useState('');
@@ -45,6 +46,10 @@ export default function VerifyEmail() {
   };
 
   useEffect(() => {
+    if (userData?.id !== '') {
+      router.push('/');
+    }
+
     fetchRef();
   }, []);
 

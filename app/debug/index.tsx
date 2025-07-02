@@ -134,9 +134,26 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
   </ScrollView>
 );
 
+const ConfigTab = () => {
+  const config = appConfig;
+  return (
+    <ScrollView className="min-h-screen px-4">
+      <Text className="mb-4 text-lg font-bold">App Config</Text>
+      {Object.entries(config).map(([key, value]) => (
+        <View key={key} className="mb-2 flex-row items-center">
+          <Text className="mr-2 font-bold">{key}:</Text>
+          <Text className="text-gray-700" selectable>
+            {String(value)}
+          </Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
+
 export default function Index() {
   const { setNavigationText, setShowTopbar, requestLogs, router } = useHelperContext()();
-  const [tab, setTab] = useState<'request' | 'storage'>('request');
+  const [tab, setTab] = useState<'request' | 'storage' | 'config'>('request');
 
   useEffect(() => {
     setNavigationText('Debug');
@@ -166,9 +183,17 @@ export default function Index() {
             Storage
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setTab('config')}
+          className={`border-b-2 px-6 py-2 ${tab === 'config' ? 'border-primary' : 'border-transparent'}`}>
+          <Text className={`font-bold ${tab === 'config' ? 'text-primary' : 'text-gray-400'}`}>
+            Config
+          </Text>
+        </TouchableOpacity>
       </View>
       {tab === 'request' && <RequestTab logs={requestLogs} />}
       {tab === 'storage' && <StorageTab />}
+      {tab === 'config' && <ConfigTab />}
     </SafeAreaView>
   );
 }
