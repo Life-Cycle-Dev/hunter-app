@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function Index() {
-  const { setNavigationText, setShowTopbar, router, userData, backendClient } = useHelperContext()();
+  const { setNavigationText, setShowTopbar, router, userData, backendClient } =
+    useHelperContext()();
 
   useEffect(() => {
     setNavigationText('Account');

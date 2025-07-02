@@ -4,15 +4,15 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+    "local": {
+      "env": {
+        "BACKEND_PATH": "http://localhost:9000"
+      }
     },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {
-      "autoIncrement": true
+    "dev": {
+      "env": {
+        "BACKEND_PATH": "https://hunter-dev-api.tongla.dev"
+      }
     }
   },
   "submit": {

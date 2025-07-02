@@ -5,7 +5,6 @@ import {
   Text,
   View,
   TextInput,
-  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,

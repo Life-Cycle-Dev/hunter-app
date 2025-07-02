@@ -27,7 +27,12 @@ const HelperContext = createContext<() => HelperContextType>(() => {
     showTopbar: true,
     setShowTopbar: () => {},
     setFullLoading: () => {},
-    backendClient: new BackendClient(() => {}, useRouter(), () => {}, () => {}),
+    backendClient: new BackendClient(
+      () => {},
+      useRouter(),
+      () => {},
+      () => {}
+    ),
     userData: null,
     requestLogs: [],
   };
@@ -51,9 +56,18 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       setFullLoading,
       backendClient: new BackendClient(setFullLoading, router, setUserData, setRequestLogs),
       userData,
-      requestLogs
+      requestLogs,
     }),
-    [navigationText, setNavigationText, router, showTopbar, setShowTopbar, setFullLoading, userData, requestLogs]
+    [
+      navigationText,
+      setNavigationText,
+      router,
+      showTopbar,
+      setShowTopbar,
+      setFullLoading,
+      userData,
+      requestLogs,
+    ]
   );
 
   useEffect(() => {

@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+
 export const appConfig = {
-    backendPath: "https://internal2.tongla.dev"
-}
+  backendPath: Constants.expoConfig?.extra?.backendPath || 'http://localhost:9000',
+};
