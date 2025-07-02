@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, isAxiosError } from "axios";
 import { appConfig } from './config';
 import { getItem, removeItem, setItem } from './storage';
-import { ErrorResponse, isErrorResponse, isSignUpResponse, LoginRequest, LoginResponse, SignUpRequest, SignUpResponse, VerifyEmailRequest, VerifyEmailResponse } from './types/response';
+import { ErrorResponse, isErrorResponse, isSignUpResponse, LoginRequest, LoginResponse, RequestLogsType, SignUpRequest, SignUpResponse, VerifyEmailRequest, VerifyEmailResponse } from './types/response';
 import { UserInfo } from './types/user';
 import { Router } from "expo-router";
 import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
+import React from "react";
 
 const handlerError = (error: unknown): ErrorResponse => {
     if (isAxiosError(error)) {
@@ -67,13 +68,14 @@ export class BackendClient {
     private readonly router: Router;
     private readonly setLoading: (value: boolean) => void;
     private readonly setUserData: (data: UserInfo) => void;
-    private readonly debug: boolean;
+    private readonly setRequestLogs: (data: RequestLogsType[]) => void;
+    private requestLogs: RequestLogsType[] = [];
 
-    constructor(setLoading: ((value: boolean) => void), router: Router, setUserData: (data: UserInfo) => void, debug: boolean = true) {
+    constructor(setLoading: ((value: boolean) => void), router: Router, setUserData: (data: UserInfo) => void, setRequestLogs: (data: RequestLogsType[]) => void) {
         this.setLoading = setLoading;
         this.router = router;
         this.setUserData = setUserData;
-        this.debug = debug;
+        this.setRequestLogs = setRequestLogs;
         this.client = axios.create({
             baseURL: appConfig.backendPath,
             headers: {
@@ -82,11 +84,16 @@ export class BackendClient {
         });
 
         this.client.interceptors.request.use(async (config) => {
-            if (this.debug) {
-                console.log('REQUEST:', config);
-            } else {
-                console.log(config.url);
-            }
+            (config as any)._log = {
+                path: config.url || '',
+                method: config.method?.toUpperCase() || '',
+                header: config.headers,
+                payload: config.data || null,
+                status: 0,
+                response: null,
+                time: new Date()
+            };
+            console.log(config.url);
             const accessToken = await getItem("access_token");
             if (accessToken) {
                 config.headers.Authorization = `Bearer ${accessToken}`;
@@ -96,17 +103,27 @@ export class BackendClient {
 
         this.client.interceptors.response.use(
             response => {
-                if (this.debug) {
-                    console.log('RESPONSE:', response);
-                } else {
-                    console.log(`${response.config.url} - ${response.status}`);
+                const log = (response.config as any)._log;
+                if (log) {
+                    log.status = response.status;
+                    log.response = response.data;
+                    log.time = new Date();
+                    this.requestLogs.push(log);
+                    this.setRequestLogs([...this.requestLogs]);
                 }
+                console.log(`${response.config.url} - ${response.status}`);
                 return response;
             },
             async (error) => {
-                if (this.debug && error.response) {
-                    console.log('ERROR RESPONSE:', error.response);
-                } else if (error.response) {
+                const log = (error.config as any)?._log;
+                if (log) {
+                    log.status = error.response?.status || 0;
+                    log.response = error.response?.data || error;
+                    log.time = new Date();
+                    this.requestLogs.push(log);
+                    this.setRequestLogs([...this.requestLogs]);
+                }
+                if (error.response) {
                     console.log(`${error.config.url} - ${error.response.status} - ${JSON.stringify(error.response.data)}`);
                 }
 

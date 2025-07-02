@@ -43,3 +43,13 @@ export interface LoginResponse {
     refresh_token: string;
     access_token: string;
 }
+
+export interface RequestLogsType {
+    path: string;
+    method: string;
+    status: number;
+    header: any;
+    payload: any;
+    response: any;
+    time: Date;
+}

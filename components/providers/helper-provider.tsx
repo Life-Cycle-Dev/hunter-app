@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import FullLoading from 'components/full-loading';
 import { BackendClient } from 'utils/request';
 import { UserInfo } from 'utils/types/user';
-import { isErrorResponse } from 'utils/types/response';
+import { isErrorResponse, RequestLogsType } from 'utils/types/response';
 
 interface HelperContextType {
   setNavigationText: (text: string) => void;
@@ -16,6 +16,7 @@ interface HelperContextType {
   setFullLoading: (value: boolean) => void;
   backendClient: BackendClient;
   userData: UserInfo | null;
+  requestLogs: RequestLogsType[];
 }
 
 const HelperContext = createContext<() => HelperContextType>(() => {
@@ -26,8 +27,9 @@ const HelperContext = createContext<() => HelperContextType>(() => {
     showTopbar: true,
     setShowTopbar: () => {},
     setFullLoading: () => {},
-    backendClient: new BackendClient(() => {}, useRouter(), () => {}),
+    backendClient: new BackendClient(() => {}, useRouter(), () => {}, () => {}),
     userData: null,
+    requestLogs: [],
   };
 });
 
@@ -36,6 +38,7 @@ export function HelperProvider({ children }: { children: ReactNode }) {
   const [showTopbar, setShowTopbar] = useState<boolean>(true);
   const [fullLoading, setFullLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserInfo | null>(null);
+  const [requestLogs, setRequestLogs] = useState<RequestLogsType[]>([]);
   const router = useRouter();
 
   const useHelper = useCallback(
@@ -46,15 +49,16 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       showTopbar,
       setShowTopbar,
       setFullLoading,
-      backendClient: new BackendClient(setFullLoading, router, setUserData),
+      backendClient: new BackendClient(setFullLoading, router, setUserData, setRequestLogs),
       userData,
+      requestLogs
     }),
-    [navigationText, setNavigationText, router, showTopbar, setShowTopbar, setFullLoading, userData]
+    [navigationText, setNavigationText, router, showTopbar, setShowTopbar, setFullLoading, userData, requestLogs]
   );
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const backendClient = new BackendClient(setFullLoading, router, setUserData);
+      const backendClient = new BackendClient(setFullLoading, router, setUserData, setRequestLogs);
       const response = await backendClient.getUserInfo();
       if (!isErrorResponse(response)) {
         setUserData(response);
