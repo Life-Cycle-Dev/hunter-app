@@ -37,7 +37,7 @@ const StorageTab = () => {
   };
 
   return (
-    <ScrollView className="px-4 min-h-screen">
+    <ScrollView className="min-h-screen px-4">
       {keys.length === 0 && (
         <Text className="text-center text-gray-400">No storage keys found.</Text>
       )}
@@ -68,7 +68,7 @@ const StorageTab = () => {
 };
 
 const RequestTab = ({ logs }: { logs: any[] }) => (
-  <ScrollView className="px-4 min-h-screen pb-20">
+  <ScrollView className="min-h-screen px-4 pb-20">
     {logs.length === 0 && <Text className="text-center text-gray-400">No request logs found.</Text>}
     {logs.map((log, idx) => (
       <View key={idx} className="mb-4 rounded-lg border border-gray-100 bg-[#fafbff] p-3">
@@ -86,7 +86,7 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
                     payload: log.payload,
                     header: log.header,
                     response: log.response,
-                    status: log.status
+                    status: log.status,
                   },
                   null,
                   2
@@ -135,7 +135,7 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
 );
 
 export default function Index() {
-  const { setNavigationText, setShowTopbar, requestLogs } = useHelperContext()();
+  const { setNavigationText, setShowTopbar, requestLogs, router } = useHelperContext()();
   const [tab, setTab] = useState<'request' | 'storage'>('request');
 
   useEffect(() => {
@@ -145,6 +145,12 @@ export default function Index() {
 
   return (
     <SafeAreaView>
+      <View className="mt-2 flex-row items-center px-4">
+        <TouchableOpacity onPress={() => router.back()} className="mr-2 p-2">
+          <Icon name="arrow-left" size={24} color="#1f329d" />
+        </TouchableOpacity>
+        <Text className="text-lg font-bold">Debug</Text>
+      </View>
       <View className="mb-4 flex-row self-center">
         <TouchableOpacity
           onPress={() => setTab('request')}

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useHelperContext } from './providers/helper-provider';
 
 export default function DebugBtn() {
-  const { router } = useHelperContext()();
+  const { router, userData } = useHelperContext()();
   const pan = useRef(new Animated.ValueXY({ x: 10, y: 100 })).current;
   const initialTouch = useRef({ x: 0, y: 0 });
 
@@ -36,6 +36,10 @@ export default function DebugBtn() {
       },
     })
   ).current;
+
+  if (!userData?.is_developer) {
+    return;
+  }
 
   return (
     <Animated.View

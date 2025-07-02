@@ -173,6 +173,7 @@ export class BackendClient {
                 id: "",
                 email: "",
                 name: "",
+                is_developer: false,
                 is_email_verified: false,
                 created_at: ""
             }
@@ -246,6 +247,7 @@ export class BackendClient {
                 id: "",
                 email: "",
                 name: "",
+                is_developer: false,
                 is_email_verified: false,
                 created_at: ""
             });
