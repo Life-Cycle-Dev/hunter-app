@@ -5,6 +5,7 @@ import { SafeAreaView, Text, View, TouchableOpacity, TextInput, ScrollView } fro
 import { getAllKeys, getItem, setItem, removeItem } from 'utils/storage';
 import Icon from 'react-native-vector-icons/Feather';
 import * as Clipboard from 'expo-clipboard';
+import { appConfig } from '../../utils/config';
 
 const StorageTab = () => {
   const [keys, setKeys] = useState<{ name: string; value: any }[]>([]);
@@ -78,20 +79,19 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
           </Text>
           <TouchableOpacity
             onPress={async () => {
-              await Clipboard.setStringAsync(
-                JSON.stringify(
-                  {
-                    method: log.method,
-                    path: log.path,
-                    payload: log.payload,
-                    header: log.header,
-                    response: log.response,
-                    status: log.status,
-                  },
-                  null,
-                  2
-                )
-              );
+              let curl = `curl -X ${log.method.toUpperCase()} '${appConfig.backendPath}${log.path}'`;
+              if (log.header) {
+                Object.entries(log.header).forEach(([key, value]) => {
+                  if (typeof value === 'string') {
+                    curl += ` -H '${key}: ${value.replace(/'/g, "'\''")}'`;
+                  }
+                });
+              }
+              if (log.payload && Object.keys(log.payload).length > 0) {
+                const data = JSON.stringify(log.payload).replace(/'/g, "'\''");
+                curl += ` --data '${data}'`;
+              }
+              await Clipboard.setStringAsync(curl);
             }}
             className="ml-2 px-2 py-1">
             <Icon name="copy" size={16} color="#1f329d" />

@@ -5,7 +5,6 @@ import { ErrorResponse, isErrorResponse, isSignUpResponse, LoginRequest, LoginRe
 import { UserInfo } from './types/user';
 import { Router } from "expo-router";
 import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
-import React from "react";
 
 const handlerError = (error: unknown): ErrorResponse => {
     if (isAxiosError(error)) {
@@ -131,8 +130,8 @@ export class BackendClient {
                     const refreshToken = await getItem("refresh_token");
                     if (refreshToken) {
                         const refreshed = await this.refreshAccessTokenSilently();
-                        const accessToken = await getItem("access_token");
                         if (refreshed) {
+                            const accessToken = await getItem("access_token");
                             error.config.headers["Authorization"] = `Bearer ${accessToken}`;
                             return this.client.request(error.config);
                         } else {
@@ -141,7 +140,6 @@ export class BackendClient {
                         }
                     }
                 }
-
                 throw error;
             }
         );
@@ -149,9 +147,10 @@ export class BackendClient {
 
     private async refreshAccessTokenSilently(): Promise<boolean> {
         try {
+            const token = await getItem("refresh_token");
             const response = await axios.post(`${appConfig.backendPath}/auth/refresh`, {}, {
                 headers: {
-                    "Authorization": `Bearer ${getItem("refresh_token")}`,
+                    "Authorization": `Bearer ${token}`,
                 },
             });
             setItem("access_token", response.data.access_token);
