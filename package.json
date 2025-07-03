@@ -8,11 +8,8 @@
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "build": "eas build --platform all",
-    "build:android": "eas build -p android --profile production",
-    "build:ios": "eas build -p ios --profile production",
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "build:android": "eas build -p android --profile production --local",
+    "build:ios": "eas build -p ios --profile production --local"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",

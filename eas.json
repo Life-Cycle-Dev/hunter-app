@@ -11,6 +11,10 @@
       }
     },
     "dev": {
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal",
       "developmentClient": false,
       "env": {
         "BACKEND_PATH": "https://hunter-dev-api.tongla.dev"
