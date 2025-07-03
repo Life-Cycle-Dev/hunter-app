@@ -8,8 +8,8 @@
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "build:dev:android": "eas build -p android --profile dev --local",
     "build:dev:ios": "eas build -p ios --profile dev --local",
-    "build:android": "eas build -p android --profile production --local",
-    "build:ios": "eas build -p ios --profile production --local"
+    "build:android": "eas build -p android --profile production",
+    "build:ios": "eas build -p ios --profile production"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",

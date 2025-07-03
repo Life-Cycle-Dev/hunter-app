@@ -5,12 +5,22 @@
   },
   "build": {
     "local": {
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal",
       "developmentClient": false,
       "env": {
         "BACKEND_PATH": "http://localhost:9000"
       }
     },
     "dev": {
+      "ios": {
+        "simulator": true
+      },
       "android": {
         "buildType": "apk"
       },
