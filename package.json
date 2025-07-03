@@ -4,10 +4,10 @@
   "scripts": {
     "local": "BACKEND_PATH=http://localhost:9000 expo start",
     "dev": "BACKEND_PATH=https://hunter-dev-api.tongla.dev expo start",
-    "prebuild": "npx expo prebuild",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
-    "build": "eas build --platform all",
+    "build:dev:android": "eas build -p android --profile dev --local",
+    "build:dev:ios": "eas build -p ios --profile dev --local",
     "build:android": "eas build -p android --profile production --local",
     "build:ios": "eas build -p ios --profile production --local"
   },
