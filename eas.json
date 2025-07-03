@@ -5,18 +5,25 @@
   },
   "build": {
     "local": {
+      "developmentClient": true,
+      "distribution": "store",
       "env": {
         "BACKEND_PATH": "http://localhost:9000"
       }
     },
     "dev": {
+      "developmentClient": true,
+      "distribution": "store",
       "env": {
         "BACKEND_PATH": "https://hunter-dev-api.tongla.dev"
       }
     },
     "production": {
       "developmentClient": false,
-      "distribution": "store"
+      "distribution": "store",
+      "env": {
+        "BACKEND_PATH": "https://hunter-dev-api.tongla.dev"
+      }
     }
   },
   "submit": {
