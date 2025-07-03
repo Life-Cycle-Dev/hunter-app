@@ -19,13 +19,20 @@ export default function Index() {
 
   return (
     <View>
-      <TouchableOpacity>
-        {userData?.id !== '' && (
-          <Text className="mt-10 text-center text-xl text-red-600" onPress={onSignOut}>
+      {userData?.is_developer && (
+        <TouchableOpacity
+          className="bg-white p-5"
+          onPress={() => router.push('/account/developer-zone')}>
+          <Text className="text-md">developer zone</Text>
+        </TouchableOpacity>
+      )}
+      {userData?.id !== '' && (
+        <TouchableOpacity>
+          <Text className="text-md mt-5 text-center text-red-600" onPress={onSignOut}>
             Sign Out
           </Text>
-        )}
-      </TouchableOpacity>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

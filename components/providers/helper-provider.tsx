@@ -6,6 +6,7 @@ import FullLoading from 'components/full-loading';
 import { BackendClient } from 'utils/request';
 import { UserInfo } from 'utils/types/user';
 import { isErrorResponse, RequestLogsType } from 'utils/types/response';
+import { getItem } from 'utils/storage';
 
 interface HelperContextType {
   setNavigationText: (text: string) => void;
@@ -17,6 +18,8 @@ interface HelperContextType {
   backendClient: BackendClient;
   userData: UserInfo | null;
   requestLogs: RequestLogsType[];
+  setIsDebugMode: (value: boolean) => void;
+  isDebugMode: boolean;
 }
 
 const HelperContext = createContext<() => HelperContextType>(() => {
@@ -35,6 +38,8 @@ const HelperContext = createContext<() => HelperContextType>(() => {
     ),
     userData: null,
     requestLogs: [],
+    setIsDebugMode: () => {},
+    isDebugMode: false,
   };
 });
 
@@ -44,6 +49,8 @@ export function HelperProvider({ children }: { children: ReactNode }) {
   const [fullLoading, setFullLoading] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserInfo | null>(null);
   const [requestLogs, setRequestLogs] = useState<RequestLogsType[]>([]);
+  const [isDebugMode, setIsDebugMode] = useState<boolean>(false);
+
   const router = useRouter();
 
   const useHelper = useCallback(
@@ -57,6 +64,8 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       backendClient: new BackendClient(setFullLoading, router, setUserData, setRequestLogs),
       userData,
       requestLogs,
+      isDebugMode,
+      setIsDebugMode,
     }),
     [
       navigationText,
@@ -67,6 +76,8 @@ export function HelperProvider({ children }: { children: ReactNode }) {
       setFullLoading,
       userData,
       requestLogs,
+      isDebugMode,
+      setIsDebugMode,
     ]
   );
 
@@ -78,6 +89,13 @@ export function HelperProvider({ children }: { children: ReactNode }) {
         setUserData(response);
       }
     };
+
+    const fetchDebugMode = async () => {
+      const debugModeEnable = ((await getItem('debug')) || false) === 'true';
+      setIsDebugMode(debugModeEnable);
+    };
+    
+    fetchDebugMode();
     fetchUserData();
   }, []);
 
