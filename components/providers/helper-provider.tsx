@@ -91,10 +91,10 @@ export function HelperProvider({ children }: { children: ReactNode }) {
     };
 
     const fetchDebugMode = async () => {
-      const debugModeEnable = ((await getItem('debug')) || false) === 'true';
+      const debugModeEnable = ((await getItem('debug')) ?? "false") === 'true';
       setIsDebugMode(debugModeEnable);
     };
-    
+
     fetchDebugMode();
     fetchUserData();
   }, []);

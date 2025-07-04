@@ -1,49 +1,45 @@
 {
-    "expo": {
-        "name": "hunter",
-        "slug": "hunter-app",
-        "version": "1.0.0",
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "experiments": {
-            "tsconfigPaths": true
-        },
-        "plugins": [
-            "expo-router"
-        ],
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
-        },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.thanawat.tonkla.hunter",
-            "infoPlist": {
-                "ITSAppUsesNonExemptEncryption": false
-            }
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            },
-            "package": "com.thanawat.tonkla.hunter"
-        },
-        "extra": {
-            "router": {},
-            "backendPath": "https://hunter-dev-api.tongla.dev",
-            "eas": {
-                "projectId": "32b529fe-0f5f-453f-8787-c574d64956d0"
-            }
-        },
-        "owner": "algnot"
-    }
+  "expo": {
+    "name": "hunter",
+    "slug": "hunter-app",
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": ["expo-router"],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thanawat.tonkla.hunter",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.thanawat.tonkla.hunter"
+    },
+    "extra": {
+      "router": {},
+      "backendPath": "https://hunter-dev-api.tongla.dev",
+      "eas": {
+        "projectId": "32b529fe-0f5f-453f-8787-c574d64956d0"
+      }
+    },
+    "owner": "algnot"
+  }
 }
