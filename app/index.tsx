@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Index() {
   const { setNavigationText, setShowTopbar } = useHelperContext()();
@@ -25,8 +24,7 @@ export default function Index() {
         </View>
         <View className="mt-[-20px] flex h-[90px] flex-row items-center justify-center gap-6 rounded-xl bg-white px-4 shadow-sm">
           <TouchableOpacity className="flex items-center justify-center gap-1">
-            <LinearGradient
-              colors={['#4f8cff', '#3358d4']}
+            <View
               style={{
                 display: 'flex',
                 height: 40,
@@ -35,15 +33,13 @@ export default function Index() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}>
+              className="bg-primary/80">
               <FontAwesome name="folder" size={20} color="#ffffff" />
-            </LinearGradient>
+            </View>
             <Text>explore</Text>
           </TouchableOpacity>
           <TouchableOpacity className="flex items-center justify-center gap-1">
-            <LinearGradient
-              colors={['#4f8cff', '#3358d4']}
+            <View
               style={{
                 display: 'flex',
                 height: 40,
@@ -52,15 +48,13 @@ export default function Index() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}>
+              className="bg-primary/80">
               <FontAwesome5 name="money-bill-wave-alt" size={19} color="#ffffff" />
-            </LinearGradient>
+            </View>
             <Text>wallet</Text>
           </TouchableOpacity>
           <TouchableOpacity className="flex items-center justify-center gap-1">
-            <LinearGradient
-              colors={['#4f8cff', '#3358d4']}
+            <View
               style={{
                 display: 'flex',
                 height: 40,
@@ -69,15 +63,13 @@ export default function Index() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}>
+              className="bg-primary/80">
               <FontAwesome name="star" size={20} color="#FFE99A" />
-            </LinearGradient>
+            </View>
             <Text>points</Text>
           </TouchableOpacity>
           <TouchableOpacity className="flex items-center justify-center gap-1">
-            <LinearGradient
-              colors={['#4f8cff', '#3358d4']}
+            <View
               style={{
                 display: 'flex',
                 height: 40,
@@ -86,10 +78,9 @@ export default function Index() {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}>
+              className="bg-primary/80">
               <FontAwesome5 name="user-friends" size={18} color="#ffffff" />
-            </LinearGradient>
+            </View>
             <Text>friends</Text>
           </TouchableOpacity>
         </View>
