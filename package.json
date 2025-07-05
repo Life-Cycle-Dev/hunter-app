@@ -1,6 +1,6 @@
 {
   "name": "hunter",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "local": "BACKEND_PATH=http://localhost:9000 expo start -c",
     "dev": "BACKEND_PATH=https://hunter-dev-api.tongla.dev expo start -c",
@@ -9,7 +9,9 @@
     "build:dev:android": "eas build -p android --profile dev --local",
     "build:dev:ios": "eas build -p ios --profile dev --local",
     "build:android": "eas build -p android --profile dev",
-    "build:ios": "eas build -p ios --profile dev"
+    "build:ios": "eas build -p ios --profile dev",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.1.2",
