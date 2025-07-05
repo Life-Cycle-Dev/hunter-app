@@ -3,7 +3,7 @@ import { useHelperContext } from 'components/providers/helper-provider';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { getAllKeys, getItem, setItem, removeItem } from 'utils/storage';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { appConfig } from '../../utils/config';
 
@@ -56,10 +56,10 @@ const StorageTab = () => {
                 await Clipboard.setStringAsync(kv.value ?? '');
               }}
               className="ml-2 p-2">
-              <Icon name="copy" size={20} color="#1f329d" />
+              <Feather name="copy" size={20} color="#1f329d" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleDeleteKey(kv.name)} className="ml-2 p-2">
-              <Icon name="trash-2" size={20} color="#e11d48" />
+              <Feather name="trash-2" size={20} color="#e11d48" />
             </TouchableOpacity>
           </View>
         </View>
@@ -94,7 +94,7 @@ const RequestTab = ({ logs }: { logs: any[] }) => (
               await Clipboard.setStringAsync(curl);
             }}
             className="ml-2 px-2 py-1">
-            <Icon name="copy" size={16} color="#1f329d" />
+            <Feather name="copy" size={16} color="#1f329d" />
           </TouchableOpacity>
         </View>
         <Text className="text-sm text-gray-700">Status: {log.status}</Text>
@@ -164,7 +164,7 @@ export default function Index() {
     <SafeAreaView>
       <View className="mt-2 flex-row items-center px-4">
         <TouchableOpacity onPress={() => router.back()} className="mr-2 p-2">
-          <Icon name="arrow-left" size={24} color="#1f329d" />
+          <Feather name="arrow-left" size={24} color="#1f329d" />
         </TouchableOpacity>
         <Text className="text-lg font-bold">Hunter Debug</Text>
       </View>

@@ -2,8 +2,7 @@
 import { useHelperContext } from 'components/providers/helper-provider';
 import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 export default function Index() {
   const { setNavigationText, setShowTopbar } = useHelperContext()();

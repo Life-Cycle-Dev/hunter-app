@@ -15,57 +15,52 @@ import {
 } from './types/response';
 import { UserInfo } from './types/user';
 import { Router } from 'expo-router';
-import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
+import Toast from 'react-native-toast-message';
 
 const handlerError = (error: unknown): ErrorResponse => {
   if (isAxiosError(error)) {
     if (error.status === 401) {
-      Dialog.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: 'Session expired. Please login again.',
-        button: 'cancel',
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Session expired. Please login again.',
       });
       return {
         error: 'Session expired. Please login again.',
       };
     } else if (error.response && error.response.data && error.response.data.navigation) {
-      Dialog.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: 'Redirecting to ' + error.response.data.navigation,
-        button: 'cancel',
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Redirecting to ' + error.response.data.navigation,
       });
       return {
         error: 'Redirecting to ' + error.response.data.navigation,
       };
     } else if (error.response && error.response.data && error.response.data.error) {
-      Dialog.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: error.response.data.error,
-        button: 'cancel',
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error.response.data.error,
       });
       return {
         error: error.response.data.error,
       };
     } else {
-      Dialog.show({
-        type: ALERT_TYPE.DANGER,
-        title: 'Error',
-        textBody: error.response?.data ?? error.message,
-        button: 'cancel',
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error.response?.data ?? error.message,
       });
       return {
         error: error.response?.data ?? error.message,
       };
     }
   } else {
-    Dialog.show({
-      type: ALERT_TYPE.DANGER,
-      title: 'Error',
-      textBody: 'An unknown error occurred. Try again!',
-      button: 'cancel',
+    Toast.show({
+      type: 'error',
+      text1: 'Error',
+      text2: 'An unknown error occurred. Try again!',
     });
     return {
       error: 'An unknown error occurred. Try again!',

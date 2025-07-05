@@ -1,5 +1,5 @@
 import { TextInput, View, Pressable, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 
 interface InputProps {
@@ -53,7 +53,7 @@ export default function Input({
           <Pressable
             onPressIn={() => setShow((prev) => !prev)}
             className="absolute right-4 top-1/2 -translate-y-1/2">
-            <Icon name={show ? 'eye' : 'eye-off'} size={20} color="#888" />
+            <Feather name={show ? 'eye' : 'eye-off'} size={20} color="#888" />
           </Pressable>
         )}
       </View>

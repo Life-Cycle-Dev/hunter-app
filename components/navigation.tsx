@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import { useHelperContext } from './providers/helper-provider';
 
 interface navigationType {
@@ -10,7 +10,6 @@ interface navigationType {
   route: string;
 }
 
-// https://oblador.github.io/react-native-vector-icons use Feather only
 export default function NavigationBar() {
   const { navigationText, router } = useHelperContext()();
 
@@ -38,8 +37,8 @@ export default function NavigationBar() {
           if (navigationText === navigation.text) {
             return (
               <View key={index} className="flex items-center justify-center">
-                <Icon
-                  name={navigation.icon}
+                <Feather
+                  name={navigation.icon as any}
                   size={navigation.size}
                   color={navigationText === navigation.text ? '#1f329d' : '#111827'}
                 />
@@ -54,8 +53,8 @@ export default function NavigationBar() {
           return (
             <TouchableOpacity key={index} onPress={() => router.push(navigation.route)}>
               <View className="flex items-center justify-center">
-                <Icon
-                  name={navigation.icon}
+                <Feather
+                  name={navigation.icon as any}
                   size={navigation.size}
                   color={navigationText === navigation.text ? '#1f329d' : '#111827'}
                 />
