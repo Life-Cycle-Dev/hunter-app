@@ -27,7 +27,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.thanawat.tonkla.hunter",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIAccessibilityIsReduceMotionEnabled": false,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
       }
     },
     "android": {
@@ -44,7 +48,7 @@
         "projectId": "32b529fe-0f5f-453f-8787-c574d64956d0"
       }
     },
-    "jsEngine": "jsc",
+    "jsEngine": "hermes",
     "owner": "algnot"
   }
 }
